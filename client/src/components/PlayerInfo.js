@@ -28,7 +28,7 @@ const PlayerInfo = ({ playerScore, playerName, playerLives, player, playerCardCo
     height: 100px;
     border: 1px solid black;
     border-radius: 5px;
-    margin: 10px;
+    margin-right: 30px;
     padding: 10px;
   `;
   

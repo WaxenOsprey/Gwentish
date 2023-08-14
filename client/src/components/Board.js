@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import '../components/Board.css';
 import Card from './Card';
 import PlayerInfo from './PlayerInfo';
 
@@ -113,12 +112,12 @@ const Board = ({ newPlayers, activePlayer }) => {
 const BoardWrapper = styled.div`
   display: flex;
   gap: 20px;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-top: 2%;
+  margin-bottom: 2%;
 `;
 
 const PlayerInfoWrapper = styled.div`
-  width: 25%;
+  width: 30%;
 `;
 
 const BoardContentWrapper = styled.div`
@@ -128,10 +127,14 @@ const BoardContentWrapper = styled.div`
 const RankContainer = styled.div`
   display: flex;
   align-items: center;
-  background-color: rgba(101, 67, 33, 0.8);
+  background: linear-gradient(to bottom right, rgba(101, 67, 33, 0.8), rgba(101, 67, 33, 0.6));
   height: 140px;
   padding: 10px;
   margin: 10px;
+  border: 10px solid rgba(101, 67, 33, 0.8); /* Beveled border */
+  border-top: 10px solid rgba(255, 255, 255, 0.5); /* Lighter top border */
+  
+  box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.8);
 `;
 
 const RankHeading = styled.h3`

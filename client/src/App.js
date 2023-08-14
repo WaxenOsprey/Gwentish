@@ -31,7 +31,11 @@ function App() {
         }
       />
       <Board newPlayers={newPlayers} activePlayer={activePlayer} />
-      <PlayerCardSelection activePlayer={activePlayer} setActivePlayer={setActivePlayer} />
+      {activePlayer && (
+        <PlayerCardSelection activePlayer={activePlayer} setActivePlayer={setActivePlayer} />
+      )}
+
+
     </>
   );
 }

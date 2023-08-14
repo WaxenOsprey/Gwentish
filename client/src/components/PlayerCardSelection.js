@@ -160,7 +160,7 @@ import handlePassRound from './HandlePassRound';
           <Heading>Choosing cards for Player: {activePlayer.name}</Heading>
         )}
         <CardGrid>
-          {activePlayer && (
+          {activePlayer && activePlayer.hand && (
             <FlexContainer>
               {activePlayer.hand.length >= 1 ? (
                 <>

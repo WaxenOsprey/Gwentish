@@ -3,76 +3,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 import '../components/Card.css';
 
-const CardWrapper = styled.div`
-  position: relative;
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  width: 100px;
-
-  &:hover .card-tooltip {
-    display: block;
-  }
-`;
-
-const CardImage = styled.img`
-  width: 100%;
-  height: auto;
-  margin: 0;
-  padding: 0;
-`;
-
-const BorderImage = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  z-index: 1;
-  margin: 0;
-  padding: 0;
-`;
-
-const PowerIndicator = styled.div`
-  position: absolute;
-  top: 110px;
-  left: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 20px;
-  background-color: white;
-  border-radius: 50%;
-  color: black;
-  font-weight: bold;
-  font-size: 12px;
-  border: 2px solid yellow;
-`;
-
-const CardTooltip = styled.div`
-  position: absolute;
-  top: -20px;
-  left: 0;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 5px;
-  display: none;
-  z-index: 2;
-  border-radius: 5px;
-  border: 3px solid yellow;
-`;
-
-const CardName = styled.div`
-  font-weight: bold;
-`;
-
-const CardFlavor = styled.div`
-  font-style: italic;
-  margin-top: 5px;
-  font-size: 12px;
-`;
 
 const Card = ({ card }) => {
   const [cardData, setCardData] = useState(null);
@@ -146,6 +76,75 @@ const Card = ({ card }) => {
   );
 };
 
-export default Card;
+const CardWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  width: 100px;
 
-//
+  &:hover .card-tooltip {
+    display: block;
+  }
+`;
+
+const CardImage = styled.img`
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+`;
+
+const BorderImage = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+`;
+
+const PowerIndicator = styled.div`
+  position: absolute;
+  top: 110px;
+  left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  color: black;
+  font-weight: bold;
+  font-size: 12px;
+  border: 2px solid yellow;
+`;
+
+const CardTooltip = styled.div`
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px;
+  display: none;
+  z-index: 2;
+  border-radius: 5px;
+  border: 3px solid yellow;
+`;
+
+const CardName = styled.div`
+  font-weight: bold;
+`;
+
+const CardFlavor = styled.div`
+  font-style: italic;
+  margin-top: 5px;
+  font-size: 12px;
+`;
+
+export default Card;
