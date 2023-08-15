@@ -5,6 +5,8 @@ import StartGame from './components/StartGame';
 import Header from './components/Header';
 import React, { useState } from "react";
 import BackgroundMusic from './components/BackgroundMusic';
+import Hand from './components/Hand';
+import Deck from './components/Deck';
 
 function App() {
   const [activePlayer, setActivePlayer] = useState(null);
@@ -31,9 +33,17 @@ function App() {
         }
       />
       <Board newPlayers={newPlayers} activePlayer={activePlayer} />
-      {activePlayer && (
-        <PlayerCardSelection activePlayer={activePlayer} setActivePlayer={setActivePlayer} />
+      
+      {playersSubmitted && (
+        <>
+          {activePlayer && activePlayer.hand && activePlayer.hand.length >= 1 ? (
+            <Hand activePlayer={activePlayer} setActivePlayer={setActivePlayer} />
+          ) : (
+            <Deck activePlayer={activePlayer} setActivePlayer={setActivePlayer} />
+          )}
+        </>
       )}
+
 
 
     </>
