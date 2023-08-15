@@ -11,51 +11,52 @@ import handlePassRound from './HandlePassRound';
     const [hoveredCard, setHoveredCard] = useState(null);
 
 
-    useEffect(() => {
-      const handleKeyPress = (e) => {
-        switch (e.key) {
-          case "ArrowLeft":
-            e.preventDefault();
-            if (activePlayer.hand.length >= 1) {
-              const currentIndex = activePlayer.hand.findIndex(card => activePlayerSelectedCard && activePlayerSelectedCard.id === card.id);
-              const previousIndex = (currentIndex - 1 + activePlayer.hand.length) % activePlayer.hand.length;
-              setActivePlayerSelectedCard(activePlayer.hand[previousIndex]);
-            }
-            break;
+
+    // useEffect(() => {
+    //   const handleKeyPress = (e) => {
+    //     switch (e.key) {
+    //       case "ArrowLeft":
+    //         e.preventDefault();
+    //         if (activePlayer.hand.length >= 1) {
+    //           const currentIndex = activePlayer.hand.findIndex(card => activePlayerSelectedCard && activePlayerSelectedCard.id === card.id);
+    //           const previousIndex = (currentIndex - 1 + activePlayer.hand.length) % activePlayer.hand.length;
+    //           setActivePlayerSelectedCard(activePlayer.hand[previousIndex]);
+    //         }
+    //         break;
           
-          case "ArrowRight":
-            e.preventDefault();
-            if (activePlayer.hand.length >= 1) {
-              const currentIndex = activePlayer.hand.findIndex(card => activePlayerSelectedCard && activePlayerSelectedCard.id === card.id);
-              const nextIndex = (currentIndex + 1) % activePlayer.hand.length;
-              setActivePlayerSelectedCard(activePlayer.hand[nextIndex]);
-            }
-            break;
+    //       case "ArrowRight":
+    //         e.preventDefault();
+    //         if (activePlayer.hand.length >= 1) {
+    //           const currentIndex = activePlayer.hand.findIndex(card => activePlayerSelectedCard && activePlayerSelectedCard.id === card.id);
+    //           const nextIndex = (currentIndex + 1) % activePlayer.hand.length;
+    //           setActivePlayerSelectedCard(activePlayer.hand[nextIndex]);
+    //         }
+    //         break;
           
-          case "Enter":
-            if (activePlayerSelectedCard) {
-              handleChosenCardSubmission(e);
-            } else if (activePlayer.hand.length === 0) {
-              handleHandSubmit(e);
-            }
-            break;
+    //       case "Enter":
+    //         if (activePlayerSelectedCard) {
+    //           handleChosenCardSubmission(e);
+    //         } else if (activePlayer.hand.length === 0) {
+    //           handleHandSubmit(e);
+    //         }
+    //         break;
           
-          case " ":
-            if (activePlayer.hand.length > 1) {
-              handlePassRound(e, activePlayer, setActivePlayer);
-            }
-            break;
+    //       case " ":
+    //         if (activePlayer.hand.length > 1) {
+    //           handlePassRound(e, activePlayer, setActivePlayer);
+    //         }
+    //         break;
     
-          default:
-            break;
-        }
-      };
+    //       default:
+    //         break;
+    //     }
+    //   };
     
-      document.addEventListener("keydown", handleKeyPress);
-      return () => {
-        document.removeEventListener("keydown", handleKeyPress);
-      };
-    }, [activePlayerSelectedCard, activePlayer.hand.length]);
+    //   document.addEventListener("keydown", handleKeyPress);
+    //   return () => {
+    //     document.removeEventListener("keydown", handleKeyPress);
+    //   };
+    // }, [activePlayerSelectedCard, activePlayer.hand.length]);
     
     
     

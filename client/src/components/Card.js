@@ -82,11 +82,8 @@ const CardWrapper = styled.div`
   margin: 0;
   padding: 0;
   width: 100px;
-
-  &:hover .card-tooltip {
-    display: block;
-  }
 `;
+
 
 const CardImage = styled.img`
   width: 100%;
