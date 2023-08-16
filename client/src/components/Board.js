@@ -56,7 +56,7 @@ const Board = ({ newPlayers, activePlayer }) => {
   
       <BoardContentWrapper className="board-content">
         <RankContainer className="p1-rank">
-          <RankHeading>{player1scores.Siege}</RankHeading>
+          <RankScore>{player1scores.Siege}</RankScore>
           <CardContainer className="card-container">
             {player1Cards.Siege.map((card, index) => (
               <Card key={index} card={card} />
@@ -64,7 +64,7 @@ const Board = ({ newPlayers, activePlayer }) => {
           </CardContainer>
         </RankContainer>
         <RankContainer className="p1-rank">
-          <RankHeading>{player1scores.Range}</RankHeading>
+          <RankScore>{player1scores.Range}</RankScore>
           <CardContainer className="card-container">
             {player1Cards.Range.map((card, index) => (
               <Card key={index} card={card} />
@@ -72,7 +72,7 @@ const Board = ({ newPlayers, activePlayer }) => {
           </CardContainer>
         </RankContainer>
         <RankContainer className="p1-rank">
-          <RankHeading>{player1scores.Melee}</RankHeading>
+          <RankScore>{player1scores.Melee}</RankScore>
           <CardContainer className="card-container">
             {player1Cards.Melee.map((card, index) => (
               <Card key={index} card={card} />
@@ -80,7 +80,7 @@ const Board = ({ newPlayers, activePlayer }) => {
           </CardContainer>
         </RankContainer>
         <RankContainer className="p2-rank">
-          <RankHeading>{player2scores.Melee}</RankHeading>
+          <RankScore>{player2scores.Melee}</RankScore>
           <CardContainer className="card-container">
             {player2Cards.Melee.map((card, index) => (
               <Card key={index} card={card} />
@@ -88,7 +88,7 @@ const Board = ({ newPlayers, activePlayer }) => {
           </CardContainer>
         </RankContainer>
         <RankContainer className="p2-rank">
-          <RankHeading>{player2scores.Range}</RankHeading>
+          <RankScore>{player2scores.Range}</RankScore>
           <CardContainer className="card-container">
             {player2Cards.Range.map((card, index) => (
               <Card key={index} card={card} />
@@ -96,7 +96,7 @@ const Board = ({ newPlayers, activePlayer }) => {
           </CardContainer>
         </RankContainer>
         <RankContainer className="p2-rank">
-          <RankHeading>{player2scores.Siege}</RankHeading>
+          <RankScore>{player2scores.Siege}</RankScore>
           <CardContainer className="card-container">
             {player2Cards.Siege.map((card, index) => (
               <Card key={index} card={card} />
@@ -129,15 +129,12 @@ const RankContainer = styled.div`
   align-items: center;
   background: linear-gradient(to bottom right, rgba(101, 67, 33, 0.8), rgba(101, 67, 33, 0.6));
   height: 140px;
-  padding: 10px;
+  /* padding: 10px; */
   margin: 10px;
-  border: 10px solid rgba(101, 67, 33, 0.8); /* Beveled border */
-  border-top: 10px solid rgba(255, 255, 255, 0.5); /* Lighter top border */
-  
-  box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.8);
+  border: 3px solid rgba(101, 67, 33, 0.8);
 `;
 
-const RankHeading = styled.h3`
+const RankScore = styled.h3`
   text-align: center;
   margin: 0;
   border: 3px solid black;

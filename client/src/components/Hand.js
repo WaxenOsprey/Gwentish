@@ -143,7 +143,7 @@ const CardContainer = styled.div`
   margin: 0;
   padding: 0;
   ${({ isCurrent }) =>  isCurrent && `
-    transform: scale(1.5); /* Enlarge selected card */
+    transform: scale(1.5);
     transition: border 0.3s, transform 0.3s;
     margin: 20px;
   `}
