@@ -24,12 +24,12 @@ const PlayerInfo = ({ playerScore, playerName, playerLives, player, playerCardCo
     background-color: rgb(76, 46, 20, 0.7);
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 90%;
     height: 100px;
     border: 1px solid black;
     border-radius: 5px;
-    margin-right: 30px;
     padding: 10px;
+
   `;
   
   const ProfilePic = styled.div`

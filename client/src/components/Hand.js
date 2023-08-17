@@ -103,6 +103,7 @@ const Hand = ({activePlayer, setActivePlayer}) => {
 
     return ( 
         <>
+                <PlayerPrompt>{activePlayer.name + ": " + "Choose your Card!"}</PlayerPrompt>
                 <HandContainer>
                     {activePlayer.hand.map((card) => (
                         <CardContainer
@@ -114,15 +115,6 @@ const Hand = ({activePlayer, setActivePlayer}) => {
                             <Card card={card} />
                         </CardContainer>
                     ))}
-                        <form onSubmit={handleChosenCardSubmission}>
-                        <Button type="submit" value="Submit" />
-                        </form>
-
-                    {activePlayer.hand.length > 1 && (
-                        <form onSubmit={(e) => handlePassRound(e, activePlayer, setActivePlayer)}>
-                        <Button type="submit" value="Pass Round" />
-                        </form>
-                  )}
                 </HandContainer>
         </>
      );
@@ -148,6 +140,12 @@ const CardContainer = styled.div`
     margin: 20px;
   `}
 
+`;
+
+const PlayerPrompt = styled.h2`
+  text-align: center;
+  margin: 10px;
+  padding: 0;
 `;
 
 

@@ -6,6 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: url(../public/joshua-bartell-6vvIBTvL90A-unsplash.jpg);
+  background-color: rgba(101, 67, 33, 0.6);
 }
 
 code {

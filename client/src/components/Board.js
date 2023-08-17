@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import Card from './Card';
 import PlayerInfo from './PlayerInfo';
 
-const Board = ({ newPlayers, activePlayer }) => {
+const Board = ({ activePlayer, listOf2Players, setListOf2Players }) => {
   const [board, setBoard] = useState(null);
-  const [listOf2Players, setListOf2Players] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:8080/api/gamestate/getBoard')
@@ -23,6 +22,7 @@ const Board = ({ newPlayers, activePlayer }) => {
 
   let listofPlayersLives = [];
   let listofPlayersNames = [];
+  let listofPlayersCards = [];
 
   if (listOf2Players && Object.keys(listOf2Players).length !== 0) {
     listofPlayersLives = listOf2Players.map((playerObj) => {
@@ -31,9 +31,12 @@ const Board = ({ newPlayers, activePlayer }) => {
     listofPlayersNames = listOf2Players.map((playerObj) => {
       return playerObj.name;
     });
+    listofPlayersCards = listOf2Players.map((playerObj) => {
+      return playerObj.hand.length;
+    });
 
     console.log('These are the two player lives ', listofPlayersLives);
-  }
+  } 
 
   if (!board) {
     return <p>Loading...</p>;
@@ -47,12 +50,18 @@ const Board = ({ newPlayers, activePlayer }) => {
   const player1Lives = listofPlayersLives[0];
   const player2Lives = listofPlayersLives[1];
 
+  const player1CardCount = listofPlayersCards[0];
+  const player2CardCount = listofPlayersCards[1];
+
+
+
   return (
+    <>
     <BoardWrapper className="Board">
-      <PlayerInfoWrapper className="player-info">
-        <PlayerInfo playerScore={player1scores.Total} playerName={player1Name} playerLives={player1Lives} player={"player1"} />
-        <PlayerInfo playerScore={player2scores.Total} playerName={player2Name} playerLives={player2Lives} player={"player2"} />
-      </PlayerInfoWrapper>
+      <PlayerInfoWrapperBackground className="player-info">
+        <PlayerInfo playerScore={player1scores.Total} playerName={player1Name} playerLives={player1Lives} player={"player1"} playerCardCount={player1CardCount}/>
+        <PlayerInfo playerScore={player2scores.Total} playerName={player2Name} playerLives={player2Lives} player={"player2"} playerCardCount={player2CardCount}/>
+      </PlayerInfoWrapperBackground>
   
       <BoardContentWrapper className="board-content">
         <RankContainer className="p1-rank">
@@ -60,7 +69,7 @@ const Board = ({ newPlayers, activePlayer }) => {
           <CardContainer className="card-container">
             {player1Cards.Siege.map((card, index) => (
               <Card key={index} card={card} />
-            ))}
+              ))}
           </CardContainer>
         </RankContainer>
         <RankContainer className="p1-rank">
@@ -68,7 +77,7 @@ const Board = ({ newPlayers, activePlayer }) => {
           <CardContainer className="card-container">
             {player1Cards.Range.map((card, index) => (
               <Card key={index} card={card} />
-            ))}
+              ))}
           </CardContainer>
         </RankContainer>
         <RankContainer className="p1-rank">
@@ -76,15 +85,18 @@ const Board = ({ newPlayers, activePlayer }) => {
           <CardContainer className="card-container">
             {player1Cards.Melee.map((card, index) => (
               <Card key={index} card={card} />
-            ))}
+              ))}
           </CardContainer>
         </RankContainer>
+
+        <Breakline></Breakline>
+
         <RankContainer className="p2-rank">
           <RankScore>{player2scores.Melee}</RankScore>
           <CardContainer className="card-container">
             {player2Cards.Melee.map((card, index) => (
               <Card key={index} card={card} />
-            ))}
+              ))}
           </CardContainer>
         </RankContainer>
         <RankContainer className="p2-rank">
@@ -92,7 +104,7 @@ const Board = ({ newPlayers, activePlayer }) => {
           <CardContainer className="card-container">
             {player2Cards.Range.map((card, index) => (
               <Card key={index} card={card} />
-            ))}
+              ))}
           </CardContainer>
         </RankContainer>
         <RankContainer className="p2-rank">
@@ -100,11 +112,13 @@ const Board = ({ newPlayers, activePlayer }) => {
           <CardContainer className="card-container">
             {player2Cards.Siege.map((card, index) => (
               <Card key={index} card={card} />
-            ))}
+              ))}
           </CardContainer>
         </RankContainer>
       </BoardContentWrapper>
     </BoardWrapper>
+    <BorderDiv></BorderDiv>
+    </>
   );
   
 };
@@ -114,40 +128,77 @@ const BoardWrapper = styled.div`
   gap: 20px;
   margin-top: 2%;
   margin-bottom: 2%;
+  flex-direction: row;
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.5) 40%,
+    rgba(0, 0, 0, 0.2) 100%
+  ), rgba(77, 44, 18, 0.9); /* Combine radial gradient and base color */
 `;
 
-const PlayerInfoWrapper = styled.div`
+const PlayerInfoWrapperBackground = styled.div`
   width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px;
+  padding: 10px;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0.3)
+  );
 `;
+
 
 const BoardContentWrapper = styled.div`
   flex-grow: 1;
-`;
+  `;
 
 const RankContainer = styled.div`
   display: flex;
   align-items: center;
-  background: linear-gradient(to bottom right, rgba(101, 67, 33, 0.8), rgba(101, 67, 33, 0.6));
+  background: linear-gradient(to bottom right, rgba(101, 67, 33, 0.3), rgba(101, 67, 33, 0.2));
   height: 140px;
   /* padding: 10px; */
   margin: 10px;
+  padding-left: 20px;
   border: 3px solid rgba(101, 67, 33, 0.8);
+  border-left: 10px solid silver;
+  position: relative; /* Add relative positioning */
 `;
 
 const RankScore = styled.h3`
   text-align: center;
-  margin: 0;
+  margin: 10px;
   border: 3px solid black;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  background-color: salmon;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  position: absolute; /* Add absolute positioning */
+  left: -50px; /* Adjust the value to center the RankScore */
 `;
+
 
 const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+`;
+
+const BorderDiv = styled.div`
+  border-bottom: 3px solid black;
+`;
+
+const Breakline = styled.div`
+  width: 100%;
+  height: 5px;
+  background-color: rgb(38, 38, 36);
+  border-top: 2px solid rgb(117, 113, 90);
+  border-radius: 5px
 `;
 
 

@@ -11,6 +11,8 @@ function App() {
   const [activePlayer, setActivePlayer] = useState(null);
   const [playersSubmitted, setPlayersSubmitted] = useState(false); 
   const [newPlayers, setNewPlayers] = useState([]);
+  const [listOf2Players, setListOf2Players] = useState(null);
+
 
   const handlePlayersSubmitted = () => {
     setPlayersSubmitted(true);
@@ -31,14 +33,14 @@ function App() {
           )
         }
       />
-      <Board newPlayers={newPlayers} activePlayer={activePlayer} />
+      <Board activePlayer={activePlayer} listOf2Players={listOf2Players} setListOf2Players={setListOf2Players} />
       
       {playersSubmitted && (
         <>
           {activePlayer && activePlayer.hand && activePlayer.hand.length >= 1 ? (
-            <Hand activePlayer={activePlayer} setActivePlayer={setActivePlayer} />
+            <Hand activePlayer={activePlayer} setActivePlayer={setActivePlayer}/>
           ) : (
-            <Deck activePlayer={activePlayer} setActivePlayer={setActivePlayer} />
+            <Deck activePlayer={activePlayer} setActivePlayer={setActivePlayer}/>
           )}
         </>
       )}
