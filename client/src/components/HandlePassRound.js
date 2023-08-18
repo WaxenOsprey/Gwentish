@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-    const handlePassRound = async (e, activePlayer, setActivePlayer) => {
+    const handlePassRound = async (e, activePlayer, setActivePlayer, setIsRoundOverModal, setStatus, setMessage) => {
+
+        
         e.preventDefault();
         try {
           const passResponse = await axios.get('http://localhost:8080/api/gamestate/passRound');
@@ -12,14 +14,16 @@ import axios from 'axios';
             console.log(roundOverResponse.data);
             if (roundOverResponse.data === true) {
               console.log("The round is over");
-              alert("The Round is Over!")
+              setStatus("Round Over");
+              setIsRoundOverModal(true); // Open the modal
       
               try {
                 const gameOverResponse = await axios.get('http://localhost:8080/api/gamestate/isGameOver');
                 console.log(gameOverResponse.data);
                 if (gameOverResponse.data === true) {
                   console.log("The game is over");
-                  alert("The Game is Over!")
+                  setStatus("Game Over");
+                  setIsRoundOverModal(true); // Open the modal
                   // Perform actions for game over
                 } else {
                   console.log("The game is not over");

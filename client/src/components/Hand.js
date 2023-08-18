@@ -3,11 +3,15 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Card from './Card';
 import handlePassRound from './HandlePassRound';
+import Modal from './Modal';
 
 
 const Hand = ({activePlayer, setActivePlayer}) => {
 
     const [activePlayerSelectedCard, setActivePlayerSelectedCard] = useState(null);
+    const [isRoundOverModal, setIsRoundOverModal] = useState(false);
+    const [message, setMessage] = useState("This is space for a dynamic game message");
+    const [status, setStatus] = useState("This is space for a dynamic game status");
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -24,7 +28,7 @@ const Hand = ({activePlayer, setActivePlayer}) => {
               handleChosenCardSubmission(event);
               break;
             case ' ':
-              handlePassRound(event, activePlayer, setActivePlayer);
+              handlePassRound(event, activePlayer, setActivePlayer, setIsRoundOverModal, setStatus, setMessage);
               break;
             default:
               break;
@@ -71,14 +75,16 @@ const Hand = ({activePlayer, setActivePlayer}) => {
               console.log(roundOverResponse.data);
               if (roundOverResponse.data === true) {
                 console.log("The round is over");
-                alert("The Round is Over!")
+                setIsRoundOverModal(true); // Open the modal
+
       
                 try {
                   const gameOverResponse = await axios.get('http://localhost:8080/api/gamestate/isGameOver');
                   console.log(gameOverResponse.data);
                   if (gameOverResponse.data === true) {
                     console.log("The game is over");
-                    alert("The Game is Over!")
+                    setIsRoundOverModal(true); // Open the modal
+
                     
                   } else {
                   }
@@ -116,6 +122,9 @@ const Hand = ({activePlayer, setActivePlayer}) => {
                         </CardContainer>
                     ))}
                 </HandContainer>
+                <Modal isOpen={isRoundOverModal} onClose={() => setIsRoundOverModal(false)} status={status} message={message} />
+
+                
         </>
      );
 }
