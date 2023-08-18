@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Optional;
 
 @RestController
@@ -99,32 +101,50 @@ public class GameController {
     }
 
     @GetMapping(value = "api/gamestate/isRoundOver")
-    public ResponseEntity<Boolean> isRoundOver(){
-        if (gameService.isRoundOver()){
-            gameService.endRound();
-            return new ResponseEntity<>(true, HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> isRoundOver() {
+        Map<String, Object> response = new HashMap<>();
+        boolean roundOver = gameService.isRoundOver();
+        String roundMessage = "";
+
+        if (roundOver) {
+            roundMessage = gameService.endRound(); // Get the message from endRound()
+            gameService.resetRoundState();
+            response.put("status", true);
+        } else {
+            response.put("status", false);
         }
-        return new ResponseEntity<>(false, HttpStatus.OK);
+
+        response.put("message", roundMessage); // Include the message in the response
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "api/gamestate/isGameOver")
-    public ResponseEntity<Boolean> isGameOver(){
-        if(gameService.isGameOver()){
-            gameService.endGame();
-            return new ResponseEntity<>(true, HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> isGameOver() {
+        Map<String, Object> response = new HashMap<>();
+        boolean gameOver = gameService.isGameOver();
+        String gameMessage = "";
+
+        if(gameOver) {
+            gameMessage = gameService.endGame();
+            response.put("status", true);
         }
-        return new ResponseEntity<>(false, HttpStatus.OK);
-    }
-    @GetMapping(value = "/api/gamestate/getGameStatus")
-    public ResponseEntity<String> getGameStatus() {
-        if (gameService.isGameOver()) {
-            return new ResponseEntity<>("Game Over!", HttpStatus.OK);
-        } else if (gameService.isRoundOver()) {
-            return new ResponseEntity<>("Round Over!", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Next Turn", HttpStatus.OK);
+        else {
+            response.put("status", false);
         }
+        response.put("message", gameMessage); // Include the message in the response
+        return ResponseEntity.ok(response);
     }
+
+//    @GetMapping(value = "/api/gamestate/getGameStatus")
+//    public ResponseEntity<String> getGameStatus() {
+//        if (gameService.isGameOver()) {
+//            return new ResponseEntity<>("Game Over!", HttpStatus.OK);
+//        } else if (gameService.isRoundOver()) {
+//            return new ResponseEntity<>("Round Over!", HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>("Next Turn", HttpStatus.OK);
+//        }
+//    }
     @GetMapping(value = "/api/gamestate/getPlayerList")
     public ResponseEntity<List<Player>> getPlayerLives() {
         return new ResponseEntity<>(gameService.getGameState().getListOfPlayers(), HttpStatus.OK);

@@ -11,18 +11,20 @@ import axios from 'axios';
       
           try {
             const roundOverResponse = await axios.get('http://localhost:8080/api/gamestate/isRoundOver');
-            console.log(roundOverResponse.data);
-            if (roundOverResponse.data === true) {
+            console.log(roundOverResponse.data.status);
+            if (roundOverResponse.data.status === true) {
               console.log("The round is over");
-              setStatus("Round Over");
+              setMessage(roundOverResponse.data.message)
+              setStatus("Round Over!");
               setIsRoundOverModal(true); // Open the modal
       
               try {
                 const gameOverResponse = await axios.get('http://localhost:8080/api/gamestate/isGameOver');
-                console.log(gameOverResponse.data);
-                if (gameOverResponse.data === true) {
+                console.log(gameOverResponse.data.status);
+                if (gameOverResponse.data.status === true) {
                   console.log("The game is over");
-                  setStatus("Game Over");
+                  setMessage(gameOverResponse.data.message)
+                  setStatus("Game Over!");
                   setIsRoundOverModal(true); // Open the modal
                   // Perform actions for game over
                 } else {

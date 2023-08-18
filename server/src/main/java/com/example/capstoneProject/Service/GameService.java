@@ -239,36 +239,34 @@ public class GameService {
                 (isPlayer1Passed && isPlayer2HandEmpty);
     }
 
-    public void endRound(){
-        //get total scores for each plyer
+    public String endRound() {
+        // Get total scores for each player
         int player1score = gameState.getBoard().getPlayer1scores().get("Total");
         int player2score = gameState.getBoard().getPlayer2scores().get("Total");
 
-        //calculate round winner
-        //if player 1 won
-        if (player1score > player2score){
+        // Determine round winner
+        if (player1score > player2score) {
             gameState.getListOfPlayers().get(1).setLives(gameState.getListOfPlayers().get(1).getLives() - 1);
-            System.out.println("player1 won the round");
-        }
-        //if player 2 won
-        else if (player2score > player1score){
+            return (gameState.getListOfPlayers().get(0).getName() + " won the round");
+        } else if (player2score > player1score) {
             gameState.getListOfPlayers().get(0).setLives(gameState.getListOfPlayers().get(0).getLives() - 1);
-            System.out.println("player2 won the round");
-        }
-        //if draw
-        else {
+            return (gameState.getListOfPlayers().get(1).getName() + " won the round");
+        } else {
             gameState.getListOfPlayers().get(1).setLives(gameState.getListOfPlayers().get(1).getLives() - 1);
             gameState.getListOfPlayers().get(0).setLives(gameState.getListOfPlayers().get(0).getLives() - 1);
-            System.out.println("round ended in a draw");
+            return "round ended in a draw";
         }
+    }
 
-        //set has passed back to false for next round
+    public void resetRoundState() {
+        // Set has passed back to false for next round
         gameState.getListOfPlayers().get(0).setHasPassed(false);
         gameState.getListOfPlayers().get(1).setHasPassed(false);
 
-        //clear the board for next round
+        // Clear the board for the next round
         gameState.getBoard().clearBoard();
     }
+
 
     public boolean isGameOver(){
         // if either player has ran out of lives or if both players have ran out of cards
@@ -282,9 +280,9 @@ public class GameService {
     public String endGame(){
         //determine the final winner based on player lives
         if (gameState.getListOfPlayers().get(0).getLives() == 0 || gameState.getListOfPlayers().get(0).getLives() < gameState.getListOfPlayers().get(1).getLives()) {
-            return "Player 1 wins the game!";
+            return (gameState.getListOfPlayers().get(1).getName() + " wins the game!");
         } else if (gameState.getListOfPlayers().get(1).getLives() == 0 || gameState.getListOfPlayers().get(1).getLives() < gameState.getListOfPlayers().get(0).getLives()) {
-            return "Player 2 wins the game!";
+            return (gameState.getListOfPlayers().get(0).getName() + " wins the game!");
         }
         else {
             return "Game ended in a draw!";
