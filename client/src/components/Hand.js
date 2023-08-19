@@ -77,7 +77,7 @@ const Hand = ({activePlayer, setActivePlayer}) => {
                 console.log("The round is over");
                 setMessage(roundOverResponse.data.message)
                 setStatus("Round Over!");
-                setIsRoundOverModal(true); // Open the modal
+                setIsRoundOverModal(true); 
 
       
                 try {
@@ -87,7 +87,7 @@ const Hand = ({activePlayer, setActivePlayer}) => {
                     console.log("The game is over");
                     setMessage(gameOverResponse.data.message)
                     setStatus("Game Over!");
-                    setIsRoundOverModal(true); // Open the modal
+                    setIsRoundOverModal(true); 
 
                     
                   } else {
@@ -143,16 +143,18 @@ margin-top: 10px;
 `;
 
 const HandWrapper = styled.div`
+  position: sticky;
+  bottom: 0;
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  align-items: center; /* Center horizontally */
+  flex-direction: column; 
+  align-items: center; 
   gap: 10px;
   background: radial-gradient(
     circle,
     rgba(0, 0, 0, 0.8) 0%,
     rgba(0, 0, 0, 0.5) 40%,
     rgba(0, 0, 0, 0.2) 100%
-  ), rgba(77, 44, 18, 0.9);
+  ), rgba(77, 44, 18, 0.5);
 `;
 
 const HandContainer = styled.div`
@@ -169,7 +171,7 @@ const CardContainer = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
-  flex-direction: column; /* Change to 'column' for card content alignment */
+  flex-direction: column; 
   ${({ isCurrent }) =>
     isCurrent &&
     `

@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import '../components/Card.css';
+import meleeIcon from '../icons/sword.png';
+import rangeIcon from '../icons/bow.png';
+import siegeIcon from '../icons/catapult.png';
+
 
 
 const Card = ({ card }) => {
@@ -66,6 +70,7 @@ const Card = ({ card }) => {
       <CardImage src={imageUrl} alt="Card" />
       <BorderImage src={borderImageUrl} alt="Card Border" />
       <PowerIndicator>{card.power}</PowerIndicator>
+      <RankIndicator rank={card.rowType}></RankIndicator>
       {showTooltip && (
         <CardTooltip className="card-tooltip">
           <CardName>{card.name}</CardName>
@@ -106,8 +111,8 @@ const BorderImage = styled.img`
 
 const PowerIndicator = styled.div`
   position: absolute;
-  top: 110px;
-  left: 10px;
+  top: 5px;
+  left: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -119,6 +124,37 @@ const PowerIndicator = styled.div`
   font-weight: bold;
   font-size: 12px;
   border: 3px solid gold;
+`;
+
+const RankIndicator = styled.div`
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: gold;
+  border-radius: 50%;
+  color: black;
+  font-weight: bold;
+  font-size: 12px;
+  border: 3px solid gold;
+  background-image: ${props =>
+    props.rank === 'Melee' ? `url(${meleeIcon})` :
+    props.rank === 'Range' ? `url(${rangeIcon})` :
+    props.rank === 'Siege' ? `url(${siegeIcon})` : 'none'};
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 83.5%;
+    left: 80%;
+
+    transform: translate(-50%, -50%);
+
 `;
 
 const CardTooltip = styled.div`

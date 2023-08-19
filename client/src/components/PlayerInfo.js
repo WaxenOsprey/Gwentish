@@ -156,9 +156,9 @@ const PlayerTotalScore = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  left: 27.5%;
+  left: 26.5%;
   background-color: ${(props) =>
-    props.player === 'player1' ? 'rgb(131, 238, 247)' : 'rgb(170, 102, 242)'};
+    props.player === 'player1' ? 'rgb(131, 238, 247, 0.9)' : 'rgb(170, 102, 242, 0.9)'};
 `;
 
 const PassedRoundIndicator = styled.div`

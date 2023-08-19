@@ -141,7 +141,7 @@ const BoardWrapper = styled.div`
     rgba(0, 0, 0, 0.8) 0%,
     rgba(0, 0, 0, 0.5) 40%,
     rgba(0, 0, 0, 0.2) 100%
-  ), rgba(77, 44, 18, 0.9); /* Combine radial gradient and base color */
+  ), rgba(77, 44, 18, 0.9); 
 `;
 
 const PlayerInfoWrapperBackground = styled.div`
@@ -160,7 +160,7 @@ const PlayerInfoWrapperBackground = styled.div`
 
 
 const BoardContentWrapper = styled.div`
-  flex-grow: 1;
+  width: 75%;
   `;
 
 const RankContainer = styled.div`
@@ -175,7 +175,6 @@ const RankContainer = styled.div`
   border-left: 10px solid silver;
   position: relative;
 
-  /* Add a background icon using the ::before pseudo-element */
   &::before {
     content: '';
     background-image: ${props =>
@@ -205,8 +204,8 @@ const RankScore = styled.h3`
   width: 50px;
   height: 50px;
   line-height: 50px;
-  position: absolute; /* Add absolute positioning */
-  left: -50px; /* Adjust the value to center the RankScore */
+  position: absolute; 
+  left: -50px; 
   background-color: ${(props) =>
     props.className === 'p1-score' ? 'rgba(131, 238, 247, 0.9)' : 'rgba(170, 102, 242, 0.9)'};
 `;

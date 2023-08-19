@@ -1,4 +1,5 @@
 import './App.css';
+import styled from 'styled-components';
 import Board from './components/Board';
 import StartGame from './components/StartGame';
 import Header from './components/Header';
@@ -7,17 +8,21 @@ import BackgroundMusic from './components/BackgroundMusic';
 import Hand from './components/Hand';
 import Deck from './components/Deck';
 
+
 function App() {
   const [activePlayer, setActivePlayer] = useState(null);
   const [playersSubmitted, setPlayersSubmitted] = useState(false); 
   const [newPlayers, setNewPlayers] = useState([]);
   const [listOf2Players, setListOf2Players] = useState(null);
 
+
   const handlePlayersSubmitted = () => {
     setPlayersSubmitted(true);
   };
 
-  return (
+
+
+return (
     <>
       {playersSubmitted ? (
         <>
@@ -30,7 +35,6 @@ function App() {
           )}
         </>
       ) : (
-        
         <StartGame
           newPlayers={newPlayers}
           setNewPlayers={setNewPlayers}
@@ -40,7 +44,7 @@ function App() {
         />
       )}
     </>
-  );
+);
 }
 
 export default App;

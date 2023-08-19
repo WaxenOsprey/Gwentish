@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import styled from 'styled-components';
+import Title from './Title';
 
 const StartGame = ({newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmitted, backgroundMusic }) => {
   const [inputtedPlayer, setInputtedPlayer] = useState("");
@@ -39,6 +41,11 @@ const StartGame = ({newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmitt
 
   return (
     <div className="UserNewForm">
+      <Title />
+      <h1>Enter Player Names</h1>
+      <h2>Minimum 2 players</h2>
+      <h2>Maximum 2 players</h2>
+      
       <form onSubmit={handlePlayersList}>
         <label htmlFor="newPlayerName">Name:</label>
         <input
@@ -52,7 +59,7 @@ const StartGame = ({newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmitt
       </form>
 
       <form onSubmit={handleSubmitPlayers}>
-        <button type="submit">Submit Players</button>
+        <button type="submit">Start Game!</button>
       </form>
       <ul className="player-list">
         {newPlayers.map((newPlayer, index) => (

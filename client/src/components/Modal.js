@@ -1,15 +1,28 @@
-import React from 'react';
 import styled from 'styled-components';
+import React, {useEffect} from 'react';
 
 const Modal = ({ isOpen, onClose, message, status }) => {
+
+  const modalOverlayRef = React.useRef(null);
+
+  const handleKeyDown = (event) => {
+    onClose();
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      modalOverlayRef.current.focus();
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
-    <ModalOverlay>
+    <ModalOverlay ref={modalOverlayRef} tabIndex={0} onKeyDown={handleKeyDown}>
       <ModalContent>
-        <h2>{status}</h2>
-        <p>{message}</p>
-        <button onClick={onClose}>Close</button>
+        <StatusMessage>{status}</StatusMessage>
+        <Messager>{message}</Messager>
+        <ExitMessage>Press any key to continue</ExitMessage>
       </ModalContent>
     </ModalOverlay>
   );
@@ -28,11 +41,32 @@ const ModalOverlay = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background-color: white;
+  background-color: rgb(59,36,16);
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border: 5px solid black;
   text-align: center;
+  width: 50%;
+  height: 50%;
+`;
+
+const StatusMessage = styled.h1`
+  color: black;
+  font-size: 72px;
+  font-weight: bold;
+`;
+
+const Messager = styled.p`
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+`;
+
+const ExitMessage = styled.p`
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
 `;
 
 

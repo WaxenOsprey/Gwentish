@@ -7,6 +7,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image: url(../public/tavern2.jpeg);
   background-color: rgba(101, 67, 33, 0.6);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+
 }
 
 code {
