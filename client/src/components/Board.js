@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Card from './Card';
 import PlayerInfo from './PlayerInfo';
+import siegeIcon from '../icons/catapult.png';
+import rangeIcon from '../icons/bow.png';
+import meleeIcon from '../icons/sword.png';
 
 const Board = ({ activePlayer, listOf2Players, setListOf2Players }) => {
   const [board, setBoard] = useState(null);
@@ -53,35 +56,39 @@ const Board = ({ activePlayer, listOf2Players, setListOf2Players }) => {
   const player1CardCount = listofPlayersCards[0];
   const player2CardCount = listofPlayersCards[1];
 
+  const player1HasPassed = listOf2Players[0].hasPassed;
+  const player2HasPassed = listOf2Players[1].hasPassed;
+
+
 
 
   return (
     <>
     <BoardWrapper className="Board">
       <PlayerInfoWrapperBackground className="player-info">
-        <PlayerInfo playerScore={player1scores.Total} playerName={player1Name} playerLives={player1Lives} player={"player1"} playerCardCount={player1CardCount}/>
-        <PlayerInfo playerScore={player2scores.Total} playerName={player2Name} playerLives={player2Lives} player={"player2"} playerCardCount={player2CardCount}/>
+        <PlayerInfo playerScore={player1scores.Total} playerName={player1Name} playerLives={player1Lives} player={"player1"} playerCardCount={player1CardCount} playerHasPassed={player1HasPassed}/>
+        <PlayerInfo playerScore={player2scores.Total} playerName={player2Name} playerLives={player2Lives} player={"player2"} playerCardCount={player2CardCount} playerHasPassed={player2HasPassed}/>
       </PlayerInfoWrapperBackground>
   
       <BoardContentWrapper className="board-content">
-        <RankContainer className="p1-rank">
-          <RankScore>{player1scores.Siege}</RankScore>
+        <RankContainer className="p1-rank" rankType="siege">
+          <RankScore className="p1-score">{player1scores.Siege}</RankScore>
           <CardContainer className="card-container">
             {player1Cards.Siege.map((card, index) => (
               <Card key={index} card={card} />
               ))}
           </CardContainer>
         </RankContainer>
-        <RankContainer className="p1-rank">
-          <RankScore>{player1scores.Range}</RankScore>
+        <RankContainer className="p1-rank" rankType="range">
+          <RankScore className="p1-score">{player1scores.Range}</RankScore>
           <CardContainer className="card-container">
             {player1Cards.Range.map((card, index) => (
               <Card key={index} card={card} />
               ))}
           </CardContainer>
         </RankContainer>
-        <RankContainer className="p1-rank">
-          <RankScore>{player1scores.Melee}</RankScore>
+        <RankContainer className="p1-rank" rankType="melee">
+          <RankScore className="p1-score">{player1scores.Melee}</RankScore>
           <CardContainer className="card-container">
             {player1Cards.Melee.map((card, index) => (
               <Card key={index} card={card} />
@@ -91,24 +98,24 @@ const Board = ({ activePlayer, listOf2Players, setListOf2Players }) => {
 
         <Breakline></Breakline>
 
-        <RankContainer className="p2-rank">
-          <RankScore>{player2scores.Melee}</RankScore>
+        <RankContainer className="p2-rank" rankType="melee">
+          <RankScore className="p2-score">{player2scores.Melee}</RankScore>
           <CardContainer className="card-container">
             {player2Cards.Melee.map((card, index) => (
               <Card key={index} card={card} />
               ))}
           </CardContainer>
         </RankContainer>
-        <RankContainer className="p2-rank">
-          <RankScore>{player2scores.Range}</RankScore>
+        <RankContainer className="p2-rank" rankType="range">
+          <RankScore className="p2-score">{player2scores.Range}</RankScore>
           <CardContainer className="card-container">
             {player2Cards.Range.map((card, index) => (
               <Card key={index} card={card} />
               ))}
           </CardContainer>
         </RankContainer>
-        <RankContainer className="p2-rank">
-          <RankScore>{player2scores.Siege}</RankScore>
+        <RankContainer className="p2-rank" rankType="siege">
+          <RankScore className="p2-score">{player2scores.Siege}</RankScore>
           <CardContainer className="card-container">
             {player2Cards.Siege.map((card, index) => (
               <Card key={index} card={card} />
@@ -141,7 +148,7 @@ const PlayerInfoWrapperBackground = styled.div`
   width: 30%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   margin: 10px;
   padding: 10px;
   background-image: linear-gradient(
@@ -159,27 +166,49 @@ const BoardContentWrapper = styled.div`
 const RankContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: start;
   background: linear-gradient(to bottom right, rgba(101, 67, 33, 0.3), rgba(101, 67, 33, 0.2));
   height: 140px;
-  /* padding: 10px; */
   margin: 10px;
   padding-left: 20px;
   border: 3px solid rgba(101, 67, 33, 0.8);
   border-left: 10px solid silver;
-  position: relative; /* Add relative positioning */
+  position: relative;
+
+  /* Add a background icon using the ::before pseudo-element */
+  &::before {
+    content: '';
+    background-image: ${props =>
+      props.rankType === 'melee' ? `url(${meleeIcon})` :
+      props.rankType === 'range' ? `url(${rangeIcon})` :
+      props.rankType === 'siege' ? `url(${siegeIcon})` : 'none'};
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+  }
 `;
+
+
 
 const RankScore = styled.h3`
   text-align: center;
+  font-size: 24px;
+  font-weight: bold;
   margin: 10px;
   border: 3px solid black;
   border-radius: 50%;
-  background-color: salmon;
   width: 50px;
   height: 50px;
   line-height: 50px;
   position: absolute; /* Add absolute positioning */
   left: -50px; /* Adjust the value to center the RankScore */
+  background-color: ${(props) =>
+    props.className === 'p1-score' ? 'rgba(131, 238, 247, 0.9)' : 'rgba(170, 102, 242, 0.9)'};
 `;
 
 

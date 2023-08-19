@@ -44,22 +44,36 @@ const Deck = ({activePlayer, setActivePlayer}) => {
       };
     return ( 
         <>
-            {activePlayer.deck.map((card) => (
-                <CardContainer
-                key={card.id}
-                className={`card ${activePlayerSelectedHand.some((selectedCard) => selectedCard.id === card.id) ? 'selected' : ''}`}
-                onClick={() => handleHandChoiceClick(card, card.name, card.power)}
-                >
-                <Card card={card} />
-                </CardContainer>
-            ))}
+            <DeckWrapper>
+              <PlayerPrompt>{activePlayer.name + ": " + "Select a hand to play with from your deck! "}{activePlayerSelectedHand.length + "/10"}</PlayerPrompt>
 
-            <form onSubmit={handleHandSubmit}>
-            <Button type="submit" value="Submit" />
-            </form>
+              {activePlayer.deck.map((card) => (
+                  <CardContainer
+                  key={card.id}
+                  className={`card ${activePlayerSelectedHand.some((selectedCard) => selectedCard.id === card.id) ? 'selected' : ''}`}
+                  onClick={() => handleHandChoiceClick(card, card.name, card.power)}
+                  >
+                  <Card card={card} />
+                  </CardContainer>
+              ))}
+
+              <form onSubmit={handleHandSubmit}>
+              <Button type="submit" value="Submit" />
+              </form>
+
+            </DeckWrapper>
         </>
      );
 }
+
+const DeckWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  `;
 
 const Button = styled.input`
 margin-top: 10px;
@@ -77,6 +91,13 @@ const CardContainer = styled.div`
     border: 2px solid yellow; 
     box-shadow: 0px 0px 8px rgba(255, 223, 0, 0.5);
   }
+`;
+
+const PlayerPrompt = styled.h2`
+  text-align: center;
+  margin: 10px;
+  padding: 0;
+  color: white;
 `;
  
  

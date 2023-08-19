@@ -113,19 +113,21 @@ const Hand = ({activePlayer, setActivePlayer}) => {
 
     return ( 
         <>
-                <PlayerPrompt>{activePlayer.name + ": " + "Choose your Card!"}</PlayerPrompt>
-                <HandContainer>
-                    {activePlayer.hand.map((card) => (
-                        <CardContainer
-                          key={card.id}
-                          isCurrent={activePlayerSelectedCard && activePlayerSelectedCard.id === card.id}
-                          className={`card ${activePlayerSelectedCard && activePlayerSelectedCard.id === card.id ? 'selected' : ''}`}
-                          onClick={() => handleChosenCardClick(card, card.name, card.power)}
-                        >
-                            <Card card={card} />
-                        </CardContainer>
-                    ))}
-                </HandContainer>
+                <HandWrapper>
+                    <PlayerPrompt>{activePlayer.name + ": " + "Choose your Card!"}</PlayerPrompt>
+                  <HandContainer>
+                        {activePlayer.hand.map((card) => (
+                            <CardContainer
+                              key={card.id}
+                              isCurrent={activePlayerSelectedCard && activePlayerSelectedCard.id === card.id}
+                              className={`card ${activePlayerSelectedCard && activePlayerSelectedCard.id === card.id ? 'selected' : ''}`}
+                              onClick={() => handleChosenCardClick(card, card.name, card.power)}
+                            >
+                                <Card card={card} />
+                            </CardContainer>
+                        ))}
+                  </HandContainer>
+                </HandWrapper>
                 <Modal isOpen={isRoundOverModal} onClose={() => setIsRoundOverModal(false)} status={status} message={message} />
 
                 
@@ -133,32 +135,55 @@ const Hand = ({activePlayer, setActivePlayer}) => {
      );
 }
 
-const HandContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-`;
+
+
 
 const Button = styled.input`
 margin-top: 10px;
 `;
 
+const HandWrapper = styled.div`
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center horizontally */
+  gap: 10px;
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.5) 40%,
+    rgba(0, 0, 0, 0.2) 100%
+  ), rgba(77, 44, 18, 0.9);
+`;
+
+const HandContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 20px;
+`;
+
 const CardContainer = styled.div`
   margin: 0;
   padding: 0;
-  ${({ isCurrent }) =>  isCurrent && `
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column; /* Change to 'column' for card content alignment */
+  ${({ isCurrent }) =>
+    isCurrent &&
+    `
     transform: scale(1.5);
     transition: border 0.3s, transform 0.3s;
     margin: 20px;
   `}
-
 `;
 
 const PlayerPrompt = styled.h2`
   text-align: center;
   margin: 10px;
   padding: 0;
+  color: gold;
 `;
 
 

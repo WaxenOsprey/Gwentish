@@ -118,7 +118,7 @@ const PowerIndicator = styled.div`
   color: black;
   font-weight: bold;
   font-size: 12px;
-  border: 2px solid yellow;
+  border: 3px solid gold;
 `;
 
 const CardTooltip = styled.div`

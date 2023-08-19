@@ -13,40 +13,32 @@ function App() {
   const [newPlayers, setNewPlayers] = useState([]);
   const [listOf2Players, setListOf2Players] = useState(null);
 
-
   const handlePlayersSubmitted = () => {
     setPlayersSubmitted(true);
   };
 
   return (
     <>
-      <Header
-        startGameComponent={
-          !playersSubmitted && (
-            <StartGame
-              newPlayers={newPlayers}
-              setNewPlayers={setNewPlayers}
-              setActivePlayer={setActivePlayer}
-              onPlayersSubmitted={handlePlayersSubmitted}
-              backgroundMusic={<BackgroundMusic />}
-            />
-          )
-        }
-      />
-      <Board activePlayer={activePlayer} listOf2Players={listOf2Players} setListOf2Players={setListOf2Players} />
-      
-      {playersSubmitted && (
+      {playersSubmitted ? (
         <>
+          <Header />
+          <Board activePlayer={activePlayer} listOf2Players={listOf2Players} setListOf2Players={setListOf2Players} />
           {activePlayer && activePlayer.hand && activePlayer.hand.length >= 1 ? (
             <Hand activePlayer={activePlayer} setActivePlayer={setActivePlayer}/>
           ) : (
             <Deck activePlayer={activePlayer} setActivePlayer={setActivePlayer}/>
           )}
         </>
+      ) : (
+        
+        <StartGame
+          newPlayers={newPlayers}
+          setNewPlayers={setNewPlayers}
+          setActivePlayer={setActivePlayer}
+          onPlayersSubmitted={handlePlayersSubmitted}
+          backgroundMusic={<BackgroundMusic />}
+        />
       )}
-
-
-
     </>
   );
 }
