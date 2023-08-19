@@ -3,7 +3,9 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Title from './Title';
 
-const StartGame = ({newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmitted, backgroundMusic }) => {
+
+
+const StartGame = ({ newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmitted, backgroundMusic }) => {
   const [inputtedPlayer, setInputtedPlayer] = useState("");
 
   const handleNameChange = (e) => {
@@ -40,34 +42,90 @@ const StartGame = ({newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmitt
   };
 
   return (
-    <div className="UserNewForm">
+    <Container>
       <Title />
-      <h1>Enter Player Names</h1>
-      <h2>Minimum 2 players</h2>
-      <h2>Maximum 2 players</h2>
+      <EnterPlayers>
+        <h1>Enter Player Names</h1>
+        <h2>Minimum 2 players</h2>
+        <h2>Maximum 2 players</h2>
+      </EnterPlayers>
       
-      <form onSubmit={handlePlayersList}>
-        <label htmlFor="newPlayerName">Name:</label>
-        <input
+      <Form onSubmit={handlePlayersList}>
+        <Label htmlFor="newPlayerName">Name:</Label>
+        <Input
           type="text"
           id="newPlayerName"
           name="newPlayerName"
           onChange={handleNameChange}
           value={inputtedPlayer}
         />
-        <button type="submit">Add Player</button>
-      </form>
+        <Button type="submit">Add Player</Button>
+      </Form>
 
-      <form onSubmit={handleSubmitPlayers}>
-        <button type="submit">Start Game!</button>
-      </form>
-      <ul className="player-list">
+      <Form onSubmit={handleSubmitPlayers}>
+        <Button type="submit">Start Game!</Button>
+      </Form>
+      <PlayerList>
         {newPlayers.map((newPlayer, index) => (
-          <li key={index}>{newPlayer}</li>
+          <PlayerListItem key={index}>{newPlayer}</PlayerListItem>
         ))}
-      </ul>
-    </div>
+      </PlayerList>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  text-align: center;
+  padding: 20px;
+  background-color: rgb(0,0,0, 0.7);
+  width: 50%;
+  border-radius: 50px;
+  border-color: darkgoldenrod;
+  border-style: ridge;
+  border-width: 5px; 
+`;
+
+const EnterPlayers = styled.div`
+  margin-bottom: 20px;
+  color: darkgoldenrod;
+`;
+
+const Form = styled.form`
+  margin-top: 20px;
+`;
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 5px;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: darkgrey;
+  width: 50%;
+`;
+
+const Button = styled.button`
+  padding: 10px 20px;
+  background-color: darkgoldenrod;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
+const PlayerList = styled.ul`
+  list-style: none;
+  padding: 0;
+`;
+
+const PlayerListItem = styled.li`
+  margin-bottom: 5px;
+`;
 
 export default StartGame;

@@ -71,6 +71,7 @@ const Card = ({ card }) => {
       <BorderImage src={borderImageUrl} alt="Card Border" />
       <PowerIndicator>{card.power}</PowerIndicator>
       <RankIndicator rank={card.rowType}></RankIndicator>
+      <RarityIndicator rarity={card.rarity}></RarityIndicator>
       {showTooltip && (
         <CardTooltip className="card-tooltip">
           <CardName>{card.name}</CardName>
@@ -104,7 +105,6 @@ const BorderImage = styled.img`
   left: 0;
   width: 100%;
   height: auto;
-  z-index: 1;
   margin: 0;
   padding: 0;
 `;
@@ -156,6 +156,28 @@ const RankIndicator = styled.div`
     transform: translate(-50%, -50%);
 
 `;
+
+const RarityIndicator = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  z-index: 1;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid
+    ${props =>
+      props.rarity === 'Legendary' ? '#3498db' : // Electric Blue
+      props.rarity === 'Epic' ? '#FF69B4' : // Bright Pink
+      props.rarity === 'Rare' ? '#FFD700' : // Gold
+      props.rarity === 'Common' ? '#C0C0C0' : 'transparent'};
+`;
+
+
+
+
+
+
 
 const CardTooltip = styled.div`
   position: absolute;

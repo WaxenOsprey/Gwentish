@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Card from './Card';
 import handlePassRound from './HandlePassRound';
 import Modal from './Modal';
+import handleChosenCardSubmission from './HandlePlayUnitCard';
 
 
 const Hand = ({activePlayer, setActivePlayer}) => {
@@ -25,9 +26,11 @@ const Hand = ({activePlayer, setActivePlayer}) => {
               selectNextCard();
               break;
             case 'Enter':
-              handleChosenCardSubmission(event);
+              // event.preventDefault();
+              handleChosenCardSubmissionWrapper(event);
               break;
             case ' ':
+              // event.preventDefault();
               handlePassRound(event, activePlayer, setActivePlayer, setIsRoundOverModal, setStatus, setMessage);
               break;
             default:
@@ -43,96 +46,55 @@ const Hand = ({activePlayer, setActivePlayer}) => {
       }, [activePlayerSelectedCard]);
 
     const selectPreviousCard = () => {
-        const currentIndex = activePlayer.hand.findIndex(card => card.id === activePlayerSelectedCard?.id);
-            if (currentIndex > 0) {
-            setActivePlayerSelectedCard(activePlayer.hand[currentIndex - 1]);
-            }
-        };
+      const currentIndex = activePlayer.hand.findIndex(card => card.id === activePlayerSelectedCard?.id);
+        if (currentIndex > 0) {
+        setActivePlayerSelectedCard(activePlayer.hand[currentIndex - 1]);
+        }
+    };
     
-      const selectNextCard = () => {
-        const currentIndex = activePlayer.hand.findIndex(card => card.id === activePlayerSelectedCard?.id);
+    const selectNextCard = () => {
+      const currentIndex = activePlayer.hand.findIndex(card => card.id === activePlayerSelectedCard?.id);
         if (currentIndex < activePlayer.hand.length - 1) {
           setActivePlayerSelectedCard(activePlayer.hand[currentIndex + 1]);
         }
-      };
+    };
 
 
     const handleChosenCardClick = (card, name, power) => {
-            console.log(`Clicked on card - Name: ${name} | Power: ${power}`);
-            setActivePlayerSelectedCard(card);
-        };
+      console.log(`Clicked on card - Name: ${name} | Power: ${power}`);
+      setActivePlayerSelectedCard(card);
+    };
+
+    const handleChosenCardSubmissionWrapper = (event) => {
+      event.preventDefault();
+      handleChosenCardSubmission(activePlayerSelectedCard, setActivePlayer, setIsRoundOverModal, setMessage, setStatus);
+    };
   
-      const handleChosenCardSubmission = async (e) => {
-        e.preventDefault();
-        try {
-          const response = await axios.post(
-            'http://localhost:8080/api/gamestate/playCard',
-            activePlayerSelectedCard
-          );
-          if (response.status === 200) {
-            try {
-              const roundOverResponse = await axios.get('http://localhost:8080/api/gamestate/isRoundOver');
-              console.log(roundOverResponse.data.status);
-              if (roundOverResponse.data.status === true) {
-                console.log("The round is over");
-                setMessage(roundOverResponse.data.message)
-                setStatus("Round Over!");
-                setIsRoundOverModal(true); 
-
-      
-                try {
-                  const gameOverResponse = await axios.get('http://localhost:8080/api/gamestate/isGameOver');
-                  console.log(gameOverResponse.data.status);
-                  if (gameOverResponse.data.status === true) {
-                    console.log("The game is over");
-                    setMessage(gameOverResponse.data.message)
-                    setStatus("Game Over!");
-                    setIsRoundOverModal(true); 
-
-                    
-                  } else {
-                  }
-                } catch (error) {
-                  console.error(error);
-                }
-              } else {
-                const toggleResponse = await axios.get('http://localhost:8080/api/gamestate/togglePlayer');
-                console.log(toggleResponse.data);
-                setActivePlayer(toggleResponse.data);
-              }
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      };
 
       
 
-    return ( 
-        <>
-                <HandWrapper>
-                    <PlayerPrompt>{activePlayer.name + ": " + "Choose your Card!"}</PlayerPrompt>
-                  <HandContainer>
-                        {activePlayer.hand.map((card) => (
-                            <CardContainer
-                              key={card.id}
-                              isCurrent={activePlayerSelectedCard && activePlayerSelectedCard.id === card.id}
-                              className={`card ${activePlayerSelectedCard && activePlayerSelectedCard.id === card.id ? 'selected' : ''}`}
-                              onClick={() => handleChosenCardClick(card, card.name, card.power)}
-                            >
-                                <Card card={card} />
-                            </CardContainer>
-                        ))}
-                  </HandContainer>
-                </HandWrapper>
-                <Modal isOpen={isRoundOverModal} onClose={() => setIsRoundOverModal(false)} status={status} message={message} />
-
-                
-        </>
-     );
+    return (
+      <>
+        {!isRoundOverModal && ( // Conditionally render the Hand only if isRoundOverModal is false
+          <HandWrapper>
+            <PlayerPrompt>{activePlayer.name + ': ' + 'Choose your Card!'}</PlayerPrompt>
+            <HandContainer>
+              {activePlayer.hand.map((card) => (
+                <CardContainer
+                  key={card.id}
+                  isCurrent={activePlayerSelectedCard && activePlayerSelectedCard.id === card.id}
+                  className={`card ${activePlayerSelectedCard && activePlayerSelectedCard.id === card.id ? 'selected' : ''}`}
+                  onClick={() => handleChosenCardClick(card, card.name, card.power)}
+                >
+                  <Card card={card} />
+                </CardContainer>
+              ))}
+            </HandContainer>
+          </HandWrapper>
+        )}
+        <Modal isOpen={isRoundOverModal} onClose={() => setIsRoundOverModal(false)} status={status} message={message} />
+      </>
+    );
 }
 
 
@@ -144,6 +106,7 @@ margin-top: 10px;
 
 const HandWrapper = styled.div`
   position: sticky;
+  z-index: 2;
   bottom: 0;
   display: flex;
   flex-direction: column; 

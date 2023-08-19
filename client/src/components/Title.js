@@ -19,6 +19,7 @@ font-weight: bold;
 text-transform: uppercase;
 color: rgb(7, 77, 15); 
 text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
+margin: 10px;
 `;
 
 

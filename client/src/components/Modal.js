@@ -38,33 +38,39 @@ const ModalOverlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 `;
 
 const ModalContent = styled.div`
-  background-color: rgb(59,36,16);
+  background-color: rgb(0,0,0, 0.7);
   padding: 20px;
-  border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   border: 5px solid black;
   text-align: center;
   width: 50%;
   height: 50%;
+  border-radius: 50px;
+  border-color: darkgoldenrod;
+  border-style: ridge;
+  border-width: 5px; 
+  padding: 50px;
+  z-index: 1;
 `;
 
 const StatusMessage = styled.h1`
-  color: black;
+  color: darkgoldenrod;
   font-size: 72px;
   font-weight: bold;
 `;
 
 const Messager = styled.p`
-  color: white;
+  color: darkgoldenrod;
   font-size: 32px;
   font-weight: bold;
 `;
 
 const ExitMessage = styled.p`
-  color: white;
+  color: darkgoldenrod;
   font-size: 24px;
   font-weight: bold;
 `;
