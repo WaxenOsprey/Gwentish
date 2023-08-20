@@ -14,19 +14,24 @@ const PlayerInfo = ({ playerScore, playerName, playerLives, player, playerCardCo
         <ProfilePic src={ProfilePicture} alt="Profile Picture" />
       </ProfileNamePicContainer>
       <PlayerInfoContainer>
+        <NameAndPassedContainer> 
           <PlayerName>{playerName}</PlayerName>
+          {playerHasPassed && <PassedRoundIndicator>Passed!</PassedRoundIndicator>}
+        </NameAndPassedContainer>
+        
+
         <SeparatorLine />
-        <LivesAndCardCount>
+
+        <LivesAndCardCount title={`Player Cards Remaining: ${playerCardCount}`} alt="Player Card Counter">
           <StyledCardsIcon />
-          <PlayerCardCounter>{playerCardCount}</PlayerCardCounter>
+          <PlayerCardCounter >{playerCardCount}</PlayerCardCounter>
           <LivesContainer>
-            <GemIcon src={playerLives > 0 ? RedGemIcon : EmptyGemIcon} alt="Life" />
-            <GemIcon src={playerLives > 1 ? RedGemIcon : EmptyGemIcon} alt="Life" />
+            <GemIcon src={playerLives > 0 ? RedGemIcon : EmptyGemIcon} alt="Lives" title={`Player Lives: ${playerLives}`} />
+            <GemIcon src={playerLives > 1 ? RedGemIcon : EmptyGemIcon} alt="Lives" title={`Player Lives: ${playerLives}`} />
           </LivesContainer>
         </LivesAndCardCount>
-      {playerHasPassed && <PassedRoundIndicator>Passed!</PassedRoundIndicator>}
       </PlayerInfoContainer>
-      <PlayerTotalScore player={player}>{playerScore}</PlayerTotalScore>
+      <PlayerTotalScore player={player} alt="Player Score" >{playerScore} </PlayerTotalScore>
     </PlayerInfoWrapper>
   );
 };
@@ -42,6 +47,12 @@ const CardsIconContainer = styled.div`
   margin: 0;
   padding: 0;
 `;
+
+const NameAndPassedContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  `
 
 const StyledCardsIcon = styled.div`
   height: 25px;
@@ -107,8 +118,8 @@ const PlayerName = styled.div`
 
 const SeparatorLine = styled.div`
   width: 100%;
-  border-top: 2px solid gold; /* Add a horizontal line */
-  margin: 5px 0; /* Adjust margin as needed */
+  border-top: 2px solid gold; 
+  margin: 5px 0; 
   margin-top: 25px;
 
 `;
@@ -140,7 +151,7 @@ const PlayerCardCounter = styled.div`
   font-size: 32px;
   font-weight: bold;
   padding: 0;
-  margin-right: 25px;
+  margin-right: 70px;
 `;
 
 const PlayerTotalScore = styled.div`
@@ -166,15 +177,9 @@ const PassedRoundIndicator = styled.div`
   font-weight: bold;
   color: white;
   padding: 0;
-  width: 50px;
-  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 300px;
-  position: absolute;
-  top: 35%;
-
 `;
 
 

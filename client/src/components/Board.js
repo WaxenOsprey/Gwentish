@@ -5,6 +5,7 @@ import PlayerInfo from './PlayerInfo';
 import siegeIcon from '../icons/catapult.png';
 import rangeIcon from '../icons/bow.png';
 import meleeIcon from '../icons/sword.png';
+import ControlPanel from './ControlPanel';
 
 const Board = ({ activePlayer, listOf2Players, setListOf2Players }) => {
   const [board, setBoard] = useState(null);
@@ -67,6 +68,7 @@ const Board = ({ activePlayer, listOf2Players, setListOf2Players }) => {
     <BoardWrapper className="Board">
       <PlayerInfoWrapperBackground className="player-info">
         <PlayerInfo playerScore={player1scores.Total} playerName={player1Name} playerLives={player1Lives} player={"player1"} playerCardCount={player1CardCount} playerHasPassed={player1HasPassed}/>
+        <ControlPanel/>
         <PlayerInfo playerScore={player2scores.Total} playerName={player2Name} playerLives={player2Lives} player={"player2"} playerCardCount={player2CardCount} playerHasPassed={player2HasPassed}/>
       </PlayerInfoWrapperBackground>
   
@@ -148,8 +150,7 @@ const PlayerInfoWrapperBackground = styled.div`
   width: 30%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  margin: 10px;
+  justify-content: center;
   padding: 10px;
   background-image: linear-gradient(
     to right,
@@ -161,6 +162,7 @@ const PlayerInfoWrapperBackground = styled.div`
 
 const BoardContentWrapper = styled.div`
   width: 75%;
+  margin-left: 50px;
   `;
 
 const RankContainer = styled.div`

@@ -7,12 +7,23 @@ import Modal from './Modal';
 import handleChosenCardSubmission from './HandlePlayUnitCard';
 
 
-const Hand = ({activePlayer, setActivePlayer}) => {
+const Hand = ({activePlayer, setActivePlayer, listOf2Players}) => {
 
     const [activePlayerSelectedCard, setActivePlayerSelectedCard] = useState(null);
     const [isRoundOverModal, setIsRoundOverModal] = useState(false);
     const [message, setMessage] = useState("This is space for a dynamic game message");
     const [status, setStatus] = useState("This is space for a dynamic game status");
+    const [cardInfoPanel, setCardInfoPanel] = useState(false);
+
+    useEffect(() => {
+      console.log('activePlayerSelectedCard changed:', activePlayerSelectedCard);
+    }, [activePlayerSelectedCard]);
+
+    useEffect(() => {
+      console.log('listOf2Players:', listOf2Players);
+      console.log(listOf2Players[0].name);
+  }, [listOf2Players]);
+    
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -32,6 +43,10 @@ const Hand = ({activePlayer, setActivePlayer}) => {
             case ' ':
               // event.preventDefault();
               handlePassRound(event, activePlayer, setActivePlayer, setIsRoundOverModal, setStatus, setMessage);
+              break;
+            case 'i':
+              event.preventDefault();
+              handleCardInfoToggle(event, activePlayerSelectedCard);
               break;
             default:
               break;
@@ -66,16 +81,32 @@ const Hand = ({activePlayer, setActivePlayer}) => {
     };
 
     const handleChosenCardSubmissionWrapper = (event) => {
-      event.preventDefault();
+      event.preventDefault();    
       handleChosenCardSubmission(activePlayerSelectedCard, setActivePlayer, setIsRoundOverModal, setMessage, setStatus);
-    };
-  
 
-      
+      if (listOf2Players[0].name === activePlayer.name) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => {
+
+          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }, 2000);
+      }
+
+    };
+
+    const handleCardInfoToggle = (event) => {
+      event.preventDefault();
+      setActivePlayerSelectedCard(null); // Deselect the active card when toggling the info panel
+      setCardInfoPanel(!cardInfoPanel);
+      console.log('Card info panel toggled', cardInfoPanel);
+    };
+    
+    
+    
 
     return (
       <>
-        {!isRoundOverModal && ( // Conditionally render the Hand only if isRoundOverModal is false
+        {!isRoundOverModal && ( 
           <HandWrapper>
             <PlayerPrompt>{activePlayer.name + ': ' + 'Choose your Card!'}</PlayerPrompt>
             <HandContainer>
@@ -90,12 +121,60 @@ const Hand = ({activePlayer, setActivePlayer}) => {
                 </CardContainer>
               ))}
             </HandContainer>
+            {cardInfoPanel && activePlayerSelectedCard && (
+              <CardExtraInfoContainer activePlayerSelectedCard={activePlayerSelectedCard}>
+                <ExtraName>{activePlayerSelectedCard.name}</ExtraName>
+                <ExtraRarity rarity={activePlayerSelectedCard.rarity}>{"("}{activePlayerSelectedCard.rarity}{")"}</ExtraRarity>
+                <ExtraFlavor>{'"'}{activePlayerSelectedCard.flavor}{'"'}</ExtraFlavor>
+              </CardExtraInfoContainer>
+            )}
           </HandWrapper>
         )}
         <Modal isOpen={isRoundOverModal} onClose={() => setIsRoundOverModal(false)} status={status} message={message} />
       </>
     );
+    
 }
+
+
+const ExtraName = styled.h3`
+  margin: 5px;
+  padding: 0;
+  color: brown;
+`;
+
+const ExtraRarity = styled.h4`
+  margin: 5px;
+  padding: 0;
+  color:     
+    ${props =>
+      props.rarity === 'Legendary' ? '#3498db' : 
+      props.rarity === 'Epic' ? '#FF69B4' : 
+      props.rarity === 'Rare' ? '#FFD700' : 
+      props.rarity === 'Common' ? '#C0C0C0' : 'transparent'};
+`;
+
+const ExtraFlavor = styled.p`
+  margin: 5px;
+  padding: 0;
+  color: lightseagreen;
+  font-style: italic;
+`;
+
+const CardExtraInfoContainer = styled.div`
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: darkgoldenrod;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+`;
 
 
 
@@ -146,7 +225,6 @@ const CardContainer = styled.div`
 
 const PlayerPrompt = styled.h2`
   text-align: center;
-  margin: 10px;
   padding: 0;
   color: gold;
 `;

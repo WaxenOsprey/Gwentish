@@ -29,7 +29,7 @@ return (
           <Header />
           <Board activePlayer={activePlayer} listOf2Players={listOf2Players} setListOf2Players={setListOf2Players} />
           {activePlayer && activePlayer.hand && activePlayer.hand.length >= 1 ? (
-            <Hand activePlayer={activePlayer} setActivePlayer={setActivePlayer}/>
+            <Hand activePlayer={activePlayer} setActivePlayer={setActivePlayer} listOf2Players={listOf2Players}/>
           ) : (
             <Deck activePlayer={activePlayer} setActivePlayer={setActivePlayer}/>
           )}

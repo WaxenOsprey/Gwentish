@@ -26,7 +26,6 @@ import axios from 'axios';
                   setMessage(gameOverResponse.data.message)
                   setStatus("Game Over!");
                   setIsRoundOverModal(true); // Open the modal
-                  // Perform actions for game over
                 } else {
                   console.log("The game is not over");
                   const toggleResponse = await axios.get('http://localhost:8080/api/gamestate/togglePlayer');

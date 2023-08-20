@@ -46,8 +46,7 @@ const StartGame = ({ newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmit
       <Title />
       <EnterPlayers>
         <h1>Enter Player Names</h1>
-        <h2>Minimum 2 players</h2>
-        <h2>Maximum 2 players</h2>
+        <h2>Player no: 2</h2>
       </EnterPlayers>
       
       <Form onSubmit={handlePlayersList}>

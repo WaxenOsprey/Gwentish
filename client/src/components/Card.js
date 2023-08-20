@@ -164,12 +164,12 @@ const RarityIndicator = styled.div`
   width: 0;
   height: 0;
   z-index: 1;
-  border-bottom: 10px solid transparent;
-  border-right: 10px solid
+  border-bottom: 15px solid transparent;
+  border-right: 15px solid
     ${props =>
-      props.rarity === 'Legendary' ? '#3498db' : // Electric Blue
-      props.rarity === 'Epic' ? '#FF69B4' : // Bright Pink
-      props.rarity === 'Rare' ? '#FFD700' : // Gold
+      props.rarity === 'Legendary' ? '#3498db' : 
+      props.rarity === 'Epic' ? '#FF69B4' : 
+      props.rarity === 'Rare' ? '#FFD700' : 
       props.rarity === 'Common' ? '#C0C0C0' : 'transparent'};
 `;
 
