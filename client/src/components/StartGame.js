@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import axios from 'axios';
 import styled from 'styled-components';
 import Title from './Title';
+import BackgroundMusic from './BackgroundMusic';
 
 
 
-const StartGame = ({ newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmitted, backgroundMusic }) => {
+const StartGame = ({ newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmitted, toggleBackgroundMusic }) => {
   const [inputtedPlayer, setInputtedPlayer] = useState("");
 
   const handleNameChange = (e) => {
@@ -20,6 +21,8 @@ const StartGame = ({ newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmit
 
   const handleSubmitPlayers = async (e) => {
     e.preventDefault();
+    toggleBackgroundMusic();
+    
     try {
       const response = await axios.post('http://localhost:8080/api/game/initialise', newPlayers);
       console.log(response.status);
