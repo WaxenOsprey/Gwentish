@@ -49,7 +49,7 @@ const StartGame = ({ newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmit
       <Title />
       <EnterPlayers>
         <h1>Enter Player Names</h1>
-        <h2>Player no: 2</h2>
+        <h2>{newPlayers.length}{"/2"}</h2>
       </EnterPlayers>
       
       <Form onSubmit={handlePlayersList}>
@@ -124,10 +124,14 @@ const Button = styled.button`
 const PlayerList = styled.ul`
   list-style: none;
   padding: 0;
+
 `;
 
 const PlayerListItem = styled.li`
   margin-bottom: 5px;
+  color: darkgoldenrod;
+  font-weight: bold;
+  font-size: 20px;
 `;
 
 export default StartGame;
