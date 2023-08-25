@@ -1,4 +1,4 @@
-# capstoneProject - A Browser Card Game App
+# Gwentish! - A Browser Card Game App
 
 ## Project group members
 Paul Cumming, Gregorio Fumagalli
