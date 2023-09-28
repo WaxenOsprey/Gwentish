@@ -67,10 +67,10 @@ const StyledCardsIcon = styled.div`
 
 
 const PlayerInfoWrapper = styled.div`
-  background-color: rgb(76, 46, 20, 0.7);
+  background-color: #5D3E1F;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Center horizontally */
+  justify-content: space-between; 
   width: 90%;
   height: 100px;
   border: 1px solid black;

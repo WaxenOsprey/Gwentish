@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Card from './Card';
 import axios from 'axios';
 
@@ -130,6 +130,15 @@ const Cards = styled.div`
   flex-direction: row;
 `
 
+const flash = keyframes`
+  0%, 100% {
+    color: gold;
+  }
+  50% {
+    color: red; 
+  }
+`;
+
 
 const Button = styled.input`
   margin-top: 10px;
@@ -139,6 +148,7 @@ const Button = styled.input`
   font-weight: bold;
   color: gold;
   background-color: rgb(76, 46, 20);
+  animation: ${flash} 1s linear infinite;
 
   &:hover {
     background-color: grey;

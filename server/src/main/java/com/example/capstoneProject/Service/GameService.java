@@ -69,7 +69,7 @@ public class GameService {
         int i = 1;
         while (i <= 30) {
             double randomNum = Math.random();
-            long finalRandomNum = Math.round((randomNum * 55) + 1);
+            long finalRandomNum = Math.round((randomNum * 54) + 1);
             boolean existsInDeck = deck.stream().anyMatch(card -> card.getId() == finalRandomNum);
             if (existsInDeck) {
                 continue;

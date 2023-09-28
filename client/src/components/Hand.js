@@ -13,7 +13,7 @@
       const [isRoundOverModal, setIsRoundOverModal] = useState(false);
       const [message, setMessage] = useState("This is space for a dynamic game message");
       const [status, setStatus] = useState("This is space for a dynamic game status");
-      const [cardInfoPanel, setCardInfoPanel] = useState(false);
+      const [cardInfoPanel, setCardInfoPanel] = useState(true);
 
       useEffect(() => {
         console.log('activePlayerSelectedCard changed:', activePlayerSelectedCard);
