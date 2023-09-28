@@ -22,8 +22,22 @@ const Board = ({ activePlayer, listOf2Players, setListOf2Players }) => {
       .then((res) => res.json())
       .then((playerObj) => setListOf2Players(playerObj))
       .catch((error) => console.error(error));
-      console.log('This is the list of players ', listOf2Players);
+    console.log('This is the list of players ', listOf2Players);
   }, [activePlayer]);
+
+  if (!board) {
+    return <p>Loading...</p>;
+  }
+
+  // Ensure that board contains expected properties
+  if (
+    !board.player1Cards ||
+    !board.player2Cards ||
+    !board.player1scores ||
+    !board.player2scores
+  ) {
+    return <p>Invalid board data.</p>;
+  }
 
   let listofPlayersLives = [];
   let listofPlayersNames = [];
@@ -41,10 +55,6 @@ const Board = ({ activePlayer, listOf2Players, setListOf2Players }) => {
     });
 
     console.log('These are the two player lives ', listofPlayersLives);
-  } 
-
-  if (!board) {
-    return <p>Loading...</p>;
   }
 
   const { player1Cards, player2Cards, player1scores, player2scores } = board;
@@ -58,76 +68,93 @@ const Board = ({ activePlayer, listOf2Players, setListOf2Players }) => {
   const player1CardCount = listofPlayersCards[0];
   const player2CardCount = listofPlayersCards[1];
 
-
-
-
   return (
     <>
-    <BoardWrapper className="Board">
-      <PlayerInfoWrapperBackground className="player-info">
-        <PlayerInfo playerScore={player1scores.Total} playerName={player1Name} playerLives={player1Lives} player={"player1"} playerCardCount={player1CardCount} playerHasPassed={listOf2Players[0].hasPassed} listOf2Players={listOf2Players}/>
-        <ControlPanel/>
-        <PlayerInfo playerScore={player2scores.Total} playerName={player2Name} playerLives={player2Lives} player={"player2"} playerCardCount={player2CardCount} playerHasPassed={listOf2Players[1].hasPassed}/>
-      </PlayerInfoWrapperBackground>
-  
-      <BoardContentWrapper className="board-content">
-        <RankContainer className="p1-rank" rankType="siege">
-          <RankScore className="p1-score">{player1scores.Siege}</RankScore>
-          <CardContainer className="card-container">
-            {player1Cards.Siege.map((card, index) => (
-              <Card key={index} card={card} />
-              ))}
-          </CardContainer>
-        </RankContainer>
-        <RankContainer className="p1-rank" rankType="range">
-          <RankScore className="p1-score">{player1scores.Range}</RankScore>
-          <CardContainer className="card-container">
-            {player1Cards.Range.map((card, index) => (
-              <Card key={index} card={card} />
-              ))}
-          </CardContainer>
-        </RankContainer>
-        <RankContainer className="p1-rank" rankType="melee">
-          <RankScore className="p1-score">{player1scores.Melee}</RankScore>
-          <CardContainer className="card-container">
-            {player1Cards.Melee.map((card, index) => (
-              <Card key={index} card={card} />
-              ))}
-          </CardContainer>
-        </RankContainer>
+      <BoardWrapper className="Board">
+        <PlayerInfoWrapperBackground className="player-info">
+          <PlayerInfo
+            playerScore={player1scores.Total}
+            playerName={player1Name}
+            playerLives={player1Lives}
+            player={"player1"}
+            playerCardCount={player1CardCount}
+            playerHasPassed={listOf2Players[0].hasPassed}
+            listOf2Players={listOf2Players}
+          />
+          <ControlPanel />
+          <PlayerInfo
+            playerScore={player2scores.Total}
+            playerName={player2Name}
+            playerLives={player2Lives}
+            player={"player2"}
+            playerCardCount={player2CardCount}
+            playerHasPassed={listOf2Players[1].hasPassed}
+          />
+        </PlayerInfoWrapperBackground>
 
-        <Breakline></Breakline>
+        <BoardContentWrapper className="board-content">
+          <RankContainer className="p1-rank" rankType="siege">
+            <RankScore className="p1-score">{player1scores.Siege}</RankScore>
+            <CardContainer className="card-container">
+              {player1Cards.Siege &&
+                player1Cards.Siege.map((card, index) => (
+                  <Card key={index} card={card} />
+                ))}
+            </CardContainer>
+          </RankContainer>
+          <RankContainer className="p1-rank" rankType="range">
+            <RankScore className="p1-score">{player1scores.Range}</RankScore>
+            <CardContainer className="card-container">
+              {player1Cards.Range &&
+                player1Cards.Range.map((card, index) => (
+                  <Card key={index} card={card} />
+                ))}
+            </CardContainer>
+          </RankContainer>
+          <RankContainer className="p1-rank" rankType="melee">
+            <RankScore className="p1-score">{player1scores.Melee}</RankScore>
+            <CardContainer className="card-container">
+              {player1Cards.Melee &&
+                player1Cards.Melee.map((card, index) => (
+                  <Card key={index} card={card} />
+                ))}
+            </CardContainer>
+          </RankContainer>
 
-        <RankContainer className="p2-rank" rankType="melee">
-          <RankScore className="p2-score">{player2scores.Melee}</RankScore>
-          <CardContainer className="card-container">
-            {player2Cards.Melee.map((card, index) => (
-              <Card key={index} card={card} />
-              ))}
-          </CardContainer>
-        </RankContainer>
-        <RankContainer className="p2-rank" rankType="range">
-          <RankScore className="p2-score">{player2scores.Range}</RankScore>
-          <CardContainer className="card-container">
-            {player2Cards.Range.map((card, index) => (
-              <Card key={index} card={card} />
-              ))}
-          </CardContainer>
-        </RankContainer>
-        <RankContainer className="p2-rank" rankType="siege">
-          <RankScore className="p2-score">{player2scores.Siege}</RankScore>
-          <CardContainer className="card-container">
-            {player2Cards.Siege.map((card, index) => (
-              <Card key={index} card={card} />
-              ))}
-          </CardContainer>
-        </RankContainer>
-      </BoardContentWrapper>
-    </BoardWrapper>
-    <BorderDiv></BorderDiv>
+          <Breakline></Breakline>
+
+          <RankContainer className="p2-rank" rankType="melee">
+            <RankScore className="p2-score">{player2scores.Melee}</RankScore>
+            <CardContainer className="card-container">
+              {player2Cards.Melee &&
+                player2Cards.Melee.map((card, index) => (
+                  <Card key={index} card={card} />
+                ))}
+            </CardContainer>
+          </RankContainer>
+          <RankContainer className="p2-rank" rankType="range">
+            <RankScore className="p2-score">{player2scores.Range}</RankScore>
+            <CardContainer className="card-container">
+              {player2Cards.Range &&
+                player2Cards.Range.map((card, index) => (
+                  <Card key={index} card={card} />
+                ))}
+            </CardContainer>
+          </RankContainer>
+          <RankContainer className="p2-rank" rankType="siege">
+            <RankScore className="p2-score">{player2scores.Siege}</RankScore>
+            <CardContainer className="card-container">
+              {player2Cards.Siege &&
+                player2Cards.Siege.map((card, index) => (
+                  <Card key={index} card={card} />
+                ))}
+            </CardContainer>
+          </RankContainer>
+        </BoardContentWrapper>
+      </BoardWrapper>
+      <BorderDiv></BorderDiv>
     </>
   );
-  
 };
 
 const BoardWrapper = styled.div`

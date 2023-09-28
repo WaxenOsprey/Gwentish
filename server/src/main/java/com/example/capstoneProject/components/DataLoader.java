@@ -44,7 +44,7 @@ public class DataLoader implements ApplicationRunner {
                         "Legendary",
                         "Neutral",
                         "",
-                        8,
+                        11,
                         "",
                         "Range"
                 ),
@@ -92,7 +92,7 @@ public class DataLoader implements ApplicationRunner {
                         "Common",
                         "Northern Realms",
                         "",
-                        5,
+                        4,
                         "",
                         "Melee"
                 ),
@@ -167,7 +167,7 @@ public class DataLoader implements ApplicationRunner {
                     "Common",
                     "Northern Realms",
                     "",
-                    5,
+                    2,
                     "",
                     "Melee"
                 ),
@@ -191,7 +191,7 @@ public class DataLoader implements ApplicationRunner {
                         "Common",
                         "Scoiatael",
                         "",
-                        5,
+                        4,
                         "",
                         "Range"
                 ),
@@ -215,35 +215,10 @@ public class DataLoader implements ApplicationRunner {
                         "Rare",
                         "Skellige",
                         "",
-                        5,
+                        6,
                         "",
                         "Range"
                 ),
-
-                new Card(
-                "Kaedweni Sergeant",
-                "Human, Soldier",
-                "",
-                "",
-                "",
-                "Forward, you sorry sods! Forward or you'll see the Nilfgaardians are the least of your worries!",
-                1094,
-                122214,
-                1178,
-                "Unmillable",
-                "Unit",
-                0,
-                "Bronze",
-                3,
-                0,
-                "Ilker Serdar Yildiz",
-                "Common",
-                "Northern Realms",
-                "",
-                5,
-                "",
-                "Melee"
-        ),
 
         new Card(
                         "Trebuchet",
@@ -339,7 +314,7 @@ public class DataLoader implements ApplicationRunner {
                 "Common",
                 "Northern Realms",
                 "",
-                5,
+                6,
                 "",
                 "Siege"
         ),
@@ -364,7 +339,7 @@ public class DataLoader implements ApplicationRunner {
                 "Rare",
                 "Northern Realms",
                 "",
-                5,
+                6,
                 "",
                 "Siege"
         ),
@@ -390,55 +365,7 @@ public class DataLoader implements ApplicationRunner {
                 "",
                 4,
                 "",
-                "Melee"
-        ),
-                new Card(
-                "Old Speartip",
-                "Ogroid",
-                "",
-                "",
-                "",
-                "Oh, you're in a heap of trouble now...",
-                144,
-                133402,
-                1196,
-                "BaseSet",
-                "Unit",
-                0,
-                "Bronze",
-                12,
-                2,
-                "Grafit Studio",
-                "Epic",
-                "Monster",
-                "",
-                11,
-                "",
                 "Range"
-        ),
-                new Card(
-                "Zoltan Chivay",
-                "Dwarf",
-                "",
-                "",
-                "",
-                "Drinkin' alone's like crappin' with company.",
-                152,
-                138301,
-                1119,
-                "BaseSet",
-                "Unit",
-                0,
-                "Gold",
-                2,
-                0,
-                "Anna Podedworna",
-                "Legendary",
-                "Scoiatael",
-                "",
-                10,
-                "",
-                "Melee"
         ),
                 new Card (
                         "Dandelion",
@@ -509,7 +436,7 @@ public class DataLoader implements ApplicationRunner {
                         "Epic",
                         "Northern Realms",
                         "",
-                        6,
+                        7,
                         "",
                         "Melee"
                 ),
@@ -658,13 +585,13 @@ public class DataLoader implements ApplicationRunner {
                     duplicationCount = 1;
                     break;
                 case "Epic":
-                    duplicationCount = 4;
+                    duplicationCount = 2;
                     break;
                 case "Rare":
-                    duplicationCount = 6;
+                    duplicationCount = 3;
                     break;
                 case "Common":
-                    duplicationCount = 8;
+                    duplicationCount = 4;
                     break;
                 default:
                     duplicationCount = 0;
