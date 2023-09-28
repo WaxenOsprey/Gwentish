@@ -27,9 +27,6 @@ const Card = ({ card }) => {
     fetchCardData();
   }, []);
 
-  useEffect(() => {
-    console.log('Card data:', cardData);
-  }, [cardData]);
 
   if (!cardData) {
     return <div>Loading...</div>;

@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import axios from 'axios';
 import styled from 'styled-components';
 import Title from './Title';
-import BackgroundMusic from './BackgroundMusic';
+// import BackgroundMusic from './BackgroundMusic';
+import backgroundMusic from '../background.mp3';
 
 
 
-const StartGame = ({ newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmitted, toggleBackgroundMusic }) => {
+
+const StartGame = ({ newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmitted, toggleBackgroundMusic, isBackgroundMusicPlaying, setIsBackgroundMusicPlaying }) => {
   const [inputtedPlayer, setInputtedPlayer] = useState("");
+
 
   const handleNameChange = (e) => {
     setInputtedPlayer(e.target.value);
@@ -22,6 +25,8 @@ const StartGame = ({ newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmit
   const handleSubmitPlayers = async (e) => {
     e.preventDefault();
     toggleBackgroundMusic();
+    setIsBackgroundMusicPlaying(true); // Indicate that music should be playing
+
     
     try {
       const response = await axios.post('http://localhost:8080/api/game/initialise', newPlayers);
@@ -35,6 +40,11 @@ const StartGame = ({ newPlayers, setNewPlayers, setActivePlayer, onPlayersSubmit
           setInputtedPlayer("");
           // setNewPlayers([]);
           onPlayersSubmitted(); // Call the callback function to indicate players submission
+
+          const audio = new Audio(backgroundMusic);
+          audio.loop = true;
+          audio.play();
+
         } catch (error) {
           console.error(error);
         }

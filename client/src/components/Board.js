@@ -22,6 +22,7 @@ const Board = ({ activePlayer, listOf2Players, setListOf2Players }) => {
       .then((res) => res.json())
       .then((playerObj) => setListOf2Players(playerObj))
       .catch((error) => console.error(error));
+      console.log('This is the list of players ', listOf2Players);
   }, [activePlayer]);
 
   let listofPlayersLives = [];
@@ -57,9 +58,6 @@ const Board = ({ activePlayer, listOf2Players, setListOf2Players }) => {
   const player1CardCount = listofPlayersCards[0];
   const player2CardCount = listofPlayersCards[1];
 
-  const player1HasPassed = listOf2Players[0].hasPassed;
-  const player2HasPassed = listOf2Players[1].hasPassed;
-
 
 
 
@@ -67,9 +65,9 @@ const Board = ({ activePlayer, listOf2Players, setListOf2Players }) => {
     <>
     <BoardWrapper className="Board">
       <PlayerInfoWrapperBackground className="player-info">
-        <PlayerInfo playerScore={player1scores.Total} playerName={player1Name} playerLives={player1Lives} player={"player1"} playerCardCount={player1CardCount} playerHasPassed={player1HasPassed}/>
+        <PlayerInfo playerScore={player1scores.Total} playerName={player1Name} playerLives={player1Lives} player={"player1"} playerCardCount={player1CardCount} playerHasPassed={listOf2Players[0].hasPassed} listOf2Players={listOf2Players}/>
         <ControlPanel/>
-        <PlayerInfo playerScore={player2scores.Total} playerName={player2Name} playerLives={player2Lives} player={"player2"} playerCardCount={player2CardCount} playerHasPassed={player2HasPassed}/>
+        <PlayerInfo playerScore={player2scores.Total} playerName={player2Name} playerLives={player2Lives} player={"player2"} playerCardCount={player2CardCount} playerHasPassed={listOf2Players[1].hasPassed}/>
       </PlayerInfoWrapperBackground>
   
       <BoardContentWrapper className="board-content">

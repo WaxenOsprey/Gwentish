@@ -7,11 +7,11 @@ import ProfilePicture from '../icons/player1.png'
 
 
 
-const PlayerInfo = ({ playerScore, playerName, playerLives, player, playerCardCount, playerHasPassed}) => {
+const PlayerInfo = ({ playerScore, playerName, playerLives, player, playerCardCount, playerHasPassed, listOf2Players}) => {
   return (
     <PlayerInfoWrapper>
       <ProfileNamePicContainer>
-        <ProfilePic src={ProfilePicture} alt="Profile Picture" />
+        <ProfilePic src={ProfilePicture} alt="Profile Picture" playerName={playerName} listOf2Players={listOf2Players}/>
       </ProfileNamePicContainer>
       <PlayerInfoContainer>
         <NameAndPassedContainer> 
@@ -89,12 +89,13 @@ const ProfileNamePicContainer = styled.div`
 `;
 
 const ProfilePic = styled.img`
-  border: 2px solid black;
+  border: 5px solid black;
   border-radius: 50%;
   width: 100%;
   height: 75%;
   margin-top: 10px;
   padding: 0;
+  border-color: ${(props) => (props.listOf2Players && props.listOf2Players[0]) ? (props.playerName === props.listOf2Players[0].name ? 'lightseagreen' : 'rgb(170, 102, 242)') : 'rgb(170, 102, 242)'};
 `;
 
 const PlayerInfoContainer = styled.div`

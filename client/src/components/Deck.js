@@ -4,7 +4,7 @@ import Card from './Card';
 import axios from 'axios';
 
 
-const Deck = ({activePlayer, setActivePlayer}) => {
+const Deck = ({activePlayer, setActivePlayer, listOf2Players}) => {
 
     const [activePlayerSelectedHand, setActivePlayerSelectedHand] = useState([]);
 
@@ -42,16 +42,21 @@ const Deck = ({activePlayer, setActivePlayer}) => {
           }
         }
       };
+
+
+
     return ( 
         <>
-            <DeckWrapper>
-              <PlayerPrompt>{activePlayer.name + ": " + "Select a hand to play with from your deck! "}{activePlayerSelectedHand.length + "/10"}</PlayerPrompt>
+            <DeckWrapper activePlayer={activePlayer} listOf2Players={listOf2Players}>
+              <PlayerPrompt activePlayer={activePlayer} listOf2Players={listOf2Players}>{activePlayer.name + ": " + "Select a hand to play with from your deck! "}{activePlayerSelectedHand.length + "/10"}</PlayerPrompt>
 
               {activePlayer.deck.map((card) => (
                   <CardContainer
                   key={card.id}
                   className={`card ${activePlayerSelectedHand.some((selectedCard) => selectedCard.id === card.id) ? 'selected' : ''}`}
                   onClick={() => handleHandChoiceClick(card, card.name, card.power)}
+                  activePlayer={activePlayer} 
+                  listOf2Players={listOf2Players}
                   >
                   <Card card={card} />
                   </CardContainer>
@@ -73,6 +78,10 @@ const DeckWrapper = styled.div`
   margin: 0;
   padding: 0;
   display: inline-block;
+  border: 3px solid;
+    border-color: ${({ activePlayer, listOf2Players }) =>
+    (activePlayer && listOf2Players && listOf2Players[0]) ? (activePlayer.name === listOf2Players[0].name ? 'lightseagreen' : 'rgb(170, 102, 242)') : 'rgb(170, 102, 242)'};
+
   `;
 
 const Button = styled.input`
@@ -88,8 +97,11 @@ const CardContainer = styled.div`
   display: inline-block;
 
   &.selected {
-    border: 2px solid yellow; 
     box-shadow: 0px 0px 8px rgba(255, 223, 0, 0.5);
+    border: 3px solid;
+    border-color: ${({ activePlayer, listOf2Players }) =>
+      (activePlayer && listOf2Players && listOf2Players[0]) ? (activePlayer.name === listOf2Players[0].name ? 'lightseagreen' : 'rgb(170, 102, 242)') : 'rgb(170, 102, 242)'};
+
   }
 `;
 
@@ -97,7 +109,9 @@ const PlayerPrompt = styled.h2`
   text-align: center;
   margin: 10px;
   padding: 0;
-  color: white;
+  color: ${({ activePlayer, listOf2Players }) =>
+    (activePlayer && listOf2Players && listOf2Players[0]) ? (activePlayer.name === listOf2Players[0].name ? 'lightseagreen' : 'rgb(170, 102, 242)') : 'rgb(170, 102, 242)'};
+
 `;
  
  
