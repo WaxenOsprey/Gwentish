@@ -41,10 +41,49 @@
 
 <hr>
 
-## Project group members
-Paul Cumming, Gregorio Fumagalli
+## Getting Started
 
-## Project Brief
+### Prerequisites
+
+- Java 11
+- Maven
+- PostgreSQL
+- Node.js
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone
+
+    ```
+2. Install NPM packages
+    ```sh
+    npm install
+    ```
+3. Install Maven packages
+    ```sh
+    mvn install
+    ```
+4. Create a PostgreSQL database called `gwentish`
+    ```sh
+    createdb gwentish
+    ```
+
+5. Run the Spring server
+    ```sh
+    mvn spring-boot:run
+    ```
+6. Run the React app
+    ```sh
+    npm start
+    ```
+7. Open the app in your browser at `http://localhost:3000/`
+
+<hr>
+
+
+## Brief
 Create a browser-based Gwent card game app that replicates the key features and gameplay mechanics of the original game.
 
 ## MVP
