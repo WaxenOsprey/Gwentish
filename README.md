@@ -18,6 +18,11 @@
 
 <hr>
 
+## Demo Video
+
+[Watch the Demo Video](https://youtu.be/UtxtS1FAiGI?si=0TUAN--aWV-vA7Y4)
+
+
 ## Built with:
 
 - PostgreSQL
@@ -102,3 +107,7 @@ Create a browser-based Gwent card game app that replicates the key features and 
 - Include an AI opponent for single-player mode
 - Implement a leaderboard to track player rankings and scores
 
+
+## Thanks to:
+
+<a href="https://github.com/Greghi2000"> Gregorio Fumagalli </a>for his assistance during the early stages of the project. 
