@@ -29,7 +29,6 @@ const Board = ({ activePlayer, listOf2Players, setListOf2Players }) => {
     return <p>Loading...</p>;
   }
 
-  // Ensure that board contains expected properties
   if (
     !board.player1Cards ||
     !board.player2Cards ||
@@ -54,8 +53,12 @@ const Board = ({ activePlayer, listOf2Players, setListOf2Players }) => {
       return playerObj.hand.length;
     });
 
-    console.log('These are the two player lives ', listofPlayersLives);
-  }
+    if (listofPlayersLives && listofPlayersLives.length > 0) {
+      console.log('These are the two player lives ', listofPlayersLives);
+    } else {
+      console.log('listofPlayersLives is null or empty');
+    }
+      }
 
   const { player1Cards, player2Cards, player1scores, player2scores } = board;
 
