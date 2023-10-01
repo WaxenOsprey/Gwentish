@@ -47,7 +47,7 @@
 - Java 11
 - Maven
 - PostgreSQL
-- Node.js
+
 
 ### Installation
 
